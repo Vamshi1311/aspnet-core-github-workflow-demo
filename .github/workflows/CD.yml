@@ -7,11 +7,11 @@ on:
 
 permissions:
   contents: read
-  needs: build
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
+    needs: build
     steps:
       - name: Stop and remove a container
         run: |

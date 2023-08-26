@@ -1,5 +1,4 @@
-name: COntianerize .net app using windows container
-
+name: build
 
 on:
  push:

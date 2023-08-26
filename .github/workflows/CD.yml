@@ -1,0 +1,23 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  needs: build
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Stop and remove a container
+        run: |
+          docker stop asp.net
+          docker rm -f asp.net
+          
+      - name: Create a container
+        run: |
+          docker run -itd --name asp.net my-docker-image

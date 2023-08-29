@@ -1,17 +1,16 @@
 name: CD
 
 on:
-  push:
-    branches:
-      - main
-
+  workflow_run:
+    workflows: ["CI build"]
+    types:
+      - completed
 permissions:
   contents: read
 
 jobs:
   deploy:
     runs-on: self-hosted
-    needs: build
     steps:
       - name: Stop and remove a container
         run: |

@@ -31,9 +31,9 @@ jobs:
     needs: build
     environment:
       name: 'dev'
-	steps:
-	  - name: copy all the files to iis
-	    run: |
+    steps:
+     - name: copy all the files to iis
+       run: |
          XCOPY /i /E /s /y /c "D:\POC\actions-runner\_work\aspnet-core-github-workflow-demo\aspnet-core-github-workflow-demo\bin\Release\net6.0"  "C:\inetpub\wwwroot"
     
 

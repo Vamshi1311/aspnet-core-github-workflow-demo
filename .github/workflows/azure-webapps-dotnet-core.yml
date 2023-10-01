@@ -16,6 +16,8 @@ jobs:
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
+      - name: dotnet publish
+        run: dotnet publish -o D:\POC\actions-runner\_work\aspnet-core-github-workflow-demo\aspnet-core-github-workflow-demo\bin\Release\net6.0\
 
     
 

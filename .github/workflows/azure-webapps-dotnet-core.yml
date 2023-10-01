@@ -18,6 +18,11 @@ jobs:
         run: dotnet build --configuration Release
       - name: dotnet publish
         run: dotnet publish
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v3
+        with:
+          name: .net-app-${{ github.run_number }}
+          path: D:\POC\actions-runner\_work\aspnet-core-github-workflow-demo\aspnet-core-github-workflow-demo\bin\Debug\net6.0\publish\
 
     
 

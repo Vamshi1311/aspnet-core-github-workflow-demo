@@ -12,7 +12,7 @@ jobs:
       - name: Copy folder content recursively to remote
         uses: garygrossgarten/github-action-scp@release
         with:
-          local: D:\POC\actions-runner\_work\aspnet-core-github-workflow-demo\aspnet-core-github-workflow-demo\published\*
+          local: D:\POC\actions-runner\_work\aspnet-core-github-workflow-demo\aspnet-core-github-workflow-demo\published\
           remote: C:\inetpub\wwwroot
           host: ${{ secrets.IP }}
           username: ${{ secrets.USER_NAME }}

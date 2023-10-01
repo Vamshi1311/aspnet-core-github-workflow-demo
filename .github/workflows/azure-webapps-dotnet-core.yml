@@ -38,11 +38,11 @@ jobs:
           name: dotnet-app-${{ github.run_number }}
           path: ./published
 
-      - name: Copy to Windows Server
-        uses: appleboy/ssh-action@master
+      - name: copy file via ssh password
+        uses: appleboy/scp-action@v0.1.4
         with:
-          host: ${{ secrets.IP }}
-          username: ${{ secrets.USER_NAME }}
-          password: ${{ secrets.USER_PASSWORD }}
-          script: |
-            scp -r ./published/* ${{ secrets.USER_NAME }}@${{ secrets.IP }}:C:\inetpub\wwwroot
+         host: ${{ secrets.IP }}
+         username: ${{ secrets.USER_NAME }}
+         password: ${{ secrets.USER_PASSWORD }}
+         source: "./published/*"
+         target: C:\inetpub\wwwroot

@@ -4,11 +4,10 @@ on:
   push:
     branches:
       - main
-  public:
-    runs-on: label
-    environment:
-      name: 'dev'
 
+jobs:
+  deploy:
+    runs-on: label
     steps:
       - name: Copy folder content recursively to remote
         uses: garygrossgarten/github-action-scp@release

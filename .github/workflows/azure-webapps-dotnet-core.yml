@@ -16,25 +16,7 @@ jobs:
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
-      - name: dotnet publish
-        run: dotnet publish -c Release -o D:\POC\actions-runner\_work\aspnet-core-github-workflow-demo\aspnet-core-github-workflow-demo\bin\Release\net6.0
 
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v3
-        with:
-          name: .net-app-${{ github.run_number }}
-          path: D:\POC\actions-runner\_work\aspnet-core-github-workflow-demo\aspnet-core-github-workflow-demo\bin\Release\net6.0
-  deploy:
-    permissions:
-      contents: none
-    runs-on: label
-    needs: build
-    environment:
-      name: 'dev'
-    steps:
-     - name: copy all the files to iis
-       run: |
-         scp -r "D:\POC\actions-runner\_work\aspnet-core-github-workflow-demo\aspnet-core-github-workflow-demo\bin\Release\net6.0"  "C:\inetpub\wwwroot"
     
 
 

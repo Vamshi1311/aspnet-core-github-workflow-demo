@@ -1,5 +1,8 @@
 name: Build and deploy ASP.Net Core app to a Windows Server
-
+env:
+  AZURE_WEBAPP_NAME: webapp-demo-001    # set this to the name of your Azure Web App
+  AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
+  DOTNET_VERSION: '6.0.x'  
 on:
   push:
     branches:
@@ -7,12 +10,15 @@ on:
 
 jobs:
   build:
-    runs-on: label
+    runs-on: windows-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
       - name: Build with dotnet
         run: dotnet build --configuration Release
 
@@ -24,25 +30,3 @@ jobs:
         with:
           name: dotnet-app-${{ github.run_number }}
           path: ./publish
-
-  deploy:
-    runs-on: label
-    needs: build
-    environment:
-      name: 'dev'
-
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: dotnet-app-${{ github.run_number }}
-          path: ./published
-
-      - name: copy file via ssh password
-        uses: appleboy/scp-action@v0.1.4
-        with:
-         host: ${{ secrets.IP }}
-         username: ${{ secrets.USER_NAME }}
-         password: ${{ secrets.USER_PASSWORD }}
-         source: "./published/*"
-         target: C:\inetpub\wwwroot

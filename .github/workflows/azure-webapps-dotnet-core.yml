@@ -30,3 +30,15 @@ jobs:
         with:
           name: dotnet-app-${{ github.run_number }}
           path: ./publish
+  deploy:
+    runs-on: windows-latest
+    needs: build
+    environment:
+      name: 'dev'
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: dotnet-app-${{ github.run_number }}
+          path: ./published

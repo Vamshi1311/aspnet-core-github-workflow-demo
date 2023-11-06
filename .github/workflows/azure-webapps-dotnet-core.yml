@@ -1,6 +1,6 @@
 name: Build and deploy ASP.Net Core app to a Windows Server
 env:
-  AZURE_WEBAPP_NAME: webapp-demo-001    # set this to the name of your Azure Web App
+  AZURE_WEBAPP_NAME: demo9849    # set this to the name of your Azure Web App
   AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
   DOTNET_VERSION: '6.0.x'  
 on:
@@ -42,3 +42,10 @@ jobs:
         with:
           name: ${{ env.AZURE_WEBAPP_NAME }}_${{ github.run_number }}
           path: ./published
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.ASP_CORE_WEB_01_PUBLISH_PROFIL }}
+          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}

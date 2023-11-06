@@ -29,7 +29,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: ${{ env.AZURE_WEBAPP_NAME }}_${{ github.run_number }}
-          path: ./publish
+          path: ${{env.DOTNET_ROOT}}/myapp
   deploy:
     runs-on: windows-latest
     needs: build
@@ -41,7 +41,6 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: ${{ env.AZURE_WEBAPP_NAME }}_${{ github.run_number }}
-          path: ./published
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
